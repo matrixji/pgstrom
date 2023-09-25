@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="PG-Strom Development Team">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Install - PG-Strom Manual</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  <link href="//fonts.googleapis.com/earlyaccess/notosansjp.css" rel="stylesheet" />
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet" />
+  <link href="../custom.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Install";
+    var mkdocs_page_input_path = "install.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> PG-Strom Manual</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+  [<a href="../ja/install/" style="color: #cccccc">Japanese</a> | <strong>English</strong>]
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Install</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#checklist">Checklist</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#selection-of-gpu-direct-sql-execiton-drivers">Selection of GPU Direct SQL Execiton drivers</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#os-installation">OS Installation</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#disables-nouveau-driver">Disables nouveau driver</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#epel-release-installation">epel-release Installation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#heterodb-swdc-installation">heterodb-swdc Installation</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#cuda-toolkit-installation">CUDA Toolkit Installation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#heterodb-extra-modules">HeteroDB extra modules</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#license-activation">License activation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#heterodb-kmod-installation">heterodb-kmod Installation</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#nvidia-gpudirect-storage">NVIDIA GPUDirect Storage</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#mofed-driver-installation">MOFED Driver Installation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#gpudirect-storage-installation">GPUDirect Storage Installation</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#postgresql-installation">PostgreSQL Installation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#pg-strom-installation">PG-Strom Installation</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#rpm-installation">RPM Installation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#installation-from-the-source">Installation from the source</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#getting-the-source-code">Getting the source code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#building-the-pg-strom">Building the PG-Strom</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#post-installation-setup">Post Installation Setup</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#creation-of-database-cluster">Creation of database cluster</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#setup-postgresqlconf">Setup postgresql.conf</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#expand-os-resource-limits">Expand OS resource limits</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#start-postgresql">Start PostgreSQL</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#creation-of-pg-strom-extension">Creation of PG-Strom Extension</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#postgis-installation">PostGIS Installation</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Tutorial</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../operations/">Basic Operations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../brin/">BRIN Index</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../partition/">Partitioning</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../postgis/">PostGIS</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../hll_count/">HyperLogLog</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../troubles/">Trouble Shooting</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Advanced Features</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../ssd2gpu/">GPUDirect SQL</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../arrow_fdw/">Apache Arrow</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../gpucache/">GPU Cache</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../fluentd/">connect with Fluentd</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">References</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../ref_types/">Data Types</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../ref_devfuncs/">Functions and Operators</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../ref_sqlfuncs/">SQL Objects</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../ref_params/">GUC Parameters</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Release Note</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../release_v3.0/">PG-Strom v3.0</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../release_v2.3/">PG-Strom v2.3</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../release_v2.2/">PG-Strom v2.2</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../release_v2.0/">PG-Strom v2.0</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">PG-Strom Manual</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Install</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="installation">Installation</h1>
+<p>This chapter introduces the steps to install PG-Strom.</p>
+<h2 id="checklist">Checklist</h2>
+<ul>
+<li><strong>Server Hardware</strong><ul>
+<li>It requires generic x86_64 hardware that can run Linux operating system supported by CUDA Toolkit. We have no special requirement for CPU, storage and network devices.</li>
+<li><a href="https://github.com/heterodb/pg-strom/wiki/002:-HW-Validation-List">note002:HW Validation List</a> may help you to choose the hardware.</li>
+<li>GPU Direct SQL Execution needs NVME-SSD devices, or fast network card with RoCE support, and to be installed under the same PCIe Root Complex where GPU is located on.</li>
+</ul>
+</li>
+<li><strong>GPU Device</strong><ul>
+<li>PG-Strom requires at least one GPU device on the system, which is supported by CUDA Toolkit, has computing capability 6.0 (Pascal generation) or later;</li>
+<li>Please check at <a href="https://github.com/heterodb/pg-strom/wiki/002:-HW-Validation-List#list-of-supported-gpu-models">002: HW Validation List - List of supported GPU models</a> for GPU selection.</li>
+</ul>
+</li>
+<li><strong>Operating System</strong><ul>
+<li>PG-Strom requires Linux operating system for x86_64 architecture, and its distribution supported by CUDA Toolkit. Our recommendation is Red Hat Enterprise Linux or CentOS version 8.x series.</li>
+<li>GPU Direct SQL Execution (w/ HeteroDB driver) needs Red Hat Enterprise Linux or CentOS version 7.3/8.0 or newer.</li>
+<li>GPU Direct SQL Execution (w/ NVIDIA driver; experimental) needs Red Hat Enterprise Linux or CentOS version 8.3 or newer, and Mellanox OFED (OpenFabrics Enterprise Distribution) driver.</li>
+</ul>
+</li>
+<li><strong>PostgreSQL</strong><ul>
+<li>PG-Strom v3.0 requires PostgreSQL v11 or later.</li>
+<li>Some of PostgreSQL APIs used by PG-Strom internally are not included in the former versions.</li>
+</ul>
+</li>
+<li><strong>CUDA Toolkit</strong><ul>
+<li>PG-Strom requires CUDA Toolkit version 11.4 or later.</li>
+<li>Some of CUDA Driver APIs used by PG-Strom internally are not included in the former versions.</li>
+<li>NVIDIA GPUDirect Storage (GDS) has been included in the CUDA Toolkit version 11.4 or later.</li>
+</ul>
+</li>
+</ul>
+<h3 id="selection-of-gpu-direct-sql-execiton-drivers">Selection of GPU Direct SQL Execiton drivers</h3>
+<p>Please consider the software stack for GPUDirect SQL, prior to the installation.</p>
+<p>There are two individual Linux kernel driver for <a href="../ssd2gpu/">GPUDirect SQL</a> execution, as follows:</p>
+<ul>
+<li>HeteroDB NVME-Strom<ul>
+<li>The dedicated Linux kernel module, released at 2018, supported since PG-Strom v2.0.</li>
+<li>It supports RHEL7.x/RHEL8.x, enables direct read from local NVME-SSDs to GPU using GPUDirect RDMA.</li>
+</ul>
+</li>
+<li>NVIDIA GPUDirect Storage<ul>
+<li>The general purpose driver stack, has been developed by NVIDIA, to support direct read from NVME/NVME-oF devices to GPU. At May-2021, its public beta revision has been published.</li>
+<li>PG-Strom v3.0 experimentally supports the GPUDirect Storage, that supports RHEL8.3/8.4 and Ubuntu 18.04/20.04.</li>
+<li>Some partners, including HeteroDB, expressed to support this feature. It also allows direct read from shared-filesystems or SDS(Software Defined Storage) devices over NVME-oF protocols.</li>
+</ul>
+</li>
+</ul>
+<p>Here is little performance differences on the above two drivers.
+On the other hands, GPUDirect Storage has more variations of the supported storages and filesystems, and more mature software QA process, expect for the case of PG-Strom on RHEL7/CentOS7, we will recommend to use GPUDirect Storage driver.</p>
+<div class="admonition tips">
+<p class="admonition-title">Tips</p>
+<p>For RHEL8/CentOS8 or Ubuntu 18.04/20.04, install the software according to the following steps.</p>
+<ol>
+<li>OS Installation</li>
+<li>CUDA Toolkit Installation</li>
+<li><code>heterodb-extra</code> module installation<ul>
+<li><strong><em>No need to install <code>heterodb-kmod</code></em></strong></li>
+</ul>
+</li>
+<li>MOFED Driver installation</li>
+<li>GPUDirect Storage module installation</li>
+<li>PostgreSQL installation</li>
+<li>PG-Strom installation</li>
+<li>PostGIS installation (on the demand)</li>
+</ol>
+<p>For RHEL7/CentOS7, install the software according to the following steps.</p>
+<ol>
+<li>OS Installation</li>
+<li>CUDA Toolkit Installation</li>
+<li><code>heterodb-extra</code> module installation</li>
+<li><code>heterodb-kmod</code> module installation<ul>
+<li><strong><em>No need to install MOFED Driver and GPUDirect Storage module</em></strong></li>
+</ul>
+</li>
+<li>PostgreSQL installation</li>
+<li>PG-Strom installation</li>
+<li>PostGIS installation (on the demand)</li>
+</ol>
+</div>
+<h2 id="os-installation">OS Installation</h2>
+<p>Choose a Linux distribution which is supported by CUDA Toolkit, then install the system according to the installation process of the distribution. <a href="https://developer.nvidia.com/">NVIDIA DEVELOPER ZONE</a> introduces the list of Linux distributions which are supported by CUDA Toolkit.</p>
+<p>In case of Red Hat Enterprise Linux 8.x or CentOS 8.x series, choose "Minimal installation" as base environment, and also check the following add-ons.</p>
+<ul>
+<li>Development Tools</li>
+</ul>
+<p><img alt="RHEL8/CentOS8 Package Selection" src="../img/centos8_package_selection.png" /></p>
+<p>Next to the OS installation on the server, go on the package repository configuration to install the third-party packages.</p>
+<p>If you didn't check the "Development Tools" at the installer, we can additionally install the software using the command below after the operating system installation.</p>
+<pre><code># dnf groupinstall 'Development Tools'
+</code></pre>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If GPU devices installed on the server are too new, it may cause system crash during system boot.
+In this case, you may avoid the problem by adding <code>nouveau.modeset=0</code> onto the kernel boot option, to disable
+the inbox graphic driver.</p>
+</div>
+<h3 id="disables-nouveau-driver">Disables nouveau driver</h3>
+<p>When the nouveau driver, that is an open source compatible driver for NVIDIA GPUs, is loaded, it prevent to load the nvidia driver.
+In this case, reboot the operating system after a configuration to disable the nouveau driver.</p>
+<p>To disable the nouveau driver, put the following configuration onto <code>/etc/modprobe.d/disable-nouveau.conf</code>, and run <code>dracut</code> command to apply them on the boot image of Linux kernel.
+Then, restart the system once.</p>
+<pre><code># cat &gt; /etc/modprobe.d/disable-nouveau.conf &lt;&lt;EOF
+blacklist nouveau
+options nouveau modeset=0
+EOF
+# dracut -f
+# shutdown -r now
+</code></pre>
+<h3 id="epel-release-installation">epel-release Installation</h3>
+<p>Several software modules required by PG-Strom are distributed as a part of EPEL (Extra Packages for Enterprise Linux).
+You need to add a repository definition of EPEL packages for yum system to obtain these software.</p>
+<p>One of the package we will get from EPEL repository is DKMS (Dynamic Kernel Module Support). It is a framework to build Linux kernel module for the running Linux kernel on demand; used for NVIDIA's GPU driver and related.
+Linux kernel module must be rebuilt according to version-up of Linux kernel, so we don't recommend to operate the system without DKMS.</p>
+<p><code>epel-release</code> package provides the repository definition of EPEL. You can obtain the package from the <a href="https://docs.fedoraproject.org/en-US/epel/#_quickstart">Fedora Project</a> website.
+For CentOS8, it can be installed using <code>dnf</code> command.</p>
+<pre><code>-- For RHEL8
+# dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+
+-- For CentOS8
+# dnf install epel-release
+</code></pre>
+<h3 id="heterodb-swdc-installation">heterodb-swdc Installation</h3>
+<p>PG-Strom and related packages are distributed from <a href="https://heterodb.github.io/swdc/">HeteroDB Software Distribution Center</a>.
+You need to add a repository definition of HeteroDB-SWDC for you system to obtain these software.</p>
+<p><code>heterodb-swdc</code> package provides the repository definition of HeteroDB-SWDC.
+Access to the <a href="https://heterodb.github.io/swdc/">HeteroDB Software Distribution Center</a> using Web browser, download the <code>heterodb-swdc-1.2-1.el8.noarch.rpm</code> on top of the file list, then install this package.
+Once heterodb-swdc package gets installed, yum system configuration is updated to get software from the HeteroDB-SWDC repository.</p>
+<p>Install the <code>heterodb-swdc</code> package as follows.</p>
+<pre><code># dnf install https://heterodb.github.io/swdc/yum/rhel8-noarch/heterodb-swdc-1.2-1.el8.noarch.rpm
+</code></pre>
+<h2 id="cuda-toolkit-installation">CUDA Toolkit Installation</h2>
+<p>This section introduces the installation of CUDA Toolkit. If you already installed the latest CUDA Toolkit, you can skip this section.</p>
+<p>NVIDIA offers two approach to install CUDA Toolkit; one is by self-extracting archive (called runfile), and the other is by RPM packages.
+We recommend RPM installation because it allows simple software updates.</p>
+<p>You can download the installation package for CUDA Toolkit from NVIDIA DEVELOPER ZONE. Choose your OS, architecture, distribution and version, then choose "rpm(network)" edition.</p>
+<p><img alt="CUDA Toolkit download" src="../img/cuda-download.png" /></p>
+<p>Once you choose the "rpm(network)" option, it shows a few step-by-step commands to configure the repository definition and to install the related packages, by RPM installation of CUDA Toolkit over the network.</p>
+<p>The example below is the commands for RHEL8/CentOS8.</p>
+<pre><code>sudo dnf config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/cuda-rhel8.repo
+sudo dnf clean all
+sudo dnf -y module install nvidia-driver:latest-dkms
+sudo dnf -y install cuda
+</code></pre>
+<p>Once installation completed successfully, CUDA Toolkit is deployed at <code>/usr/local/cuda</code>.</p>
+<pre><code>$ ls /usr/local/cuda
+bin     include  libnsight         nvml       samples  tools
+doc     jre      libnvvp           nvvm       share    version.txt
+extras  lib64    nsightee_plugins  pkgconfig  src
+</code></pre>
+<p>Once installation gets completed, ensure the system recognizes the GPU devices correctly.
+<code>nvidia-smi</code> command shows GPU information installed on your system, as follows.</p>
+<pre><code>$ nvidia-smi
+Thu May 27 15:05:50 2021
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 465.19.01    Driver Version: 465.19.01    CUDA Version: 11.3     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  NVIDIA A100-PCI...  Off  | 00000000:8E:00.0 Off |                    0 |
+| N/A   44C    P0    49W / 250W |      0MiB / 40536MiB |      0%      Default |
+|                               |                      |             Disabled |
++-------------------------------+----------------------+----------------------+
+|   1  NVIDIA A100-PCI...  Off  | 00000000:B1:00.0 Off |                    0 |
+| N/A   41C    P0    54W / 250W |      0MiB / 40536MiB |      0%      Default |
+|                               |                      |             Disabled |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+
+</code></pre>
+<h2 id="heterodb-extra-modules">HeteroDB extra modules</h2>
+<p><code>heterodb-extra</code> module enhances PG-Strom the following features.</p>
+<ul>
+<li>multi-GPUs support</li>
+<li>GPUDirect SQL</li>
+<li>GiST index support on GPU</li>
+<li>License management</li>
+</ul>
+<p>If you don't use the above features, only open source modules, you don't need to install the <code>heterodb-extra</code> module here.
+Please skip this section.</p>
+<p>Install the <code>heterodb-extra</code> package, downloaded from the SWDC, as follows.</p>
+<pre><code># dnf install heterodb-extra
+</code></pre>
+<h3 id="license-activation">License activation</h3>
+<p>License activation is needed to use all the features of <code>heterodb-extra</code>, provided by HeteroDB,Inc. You can operate the system without license, but features below are restricted.</p>
+<ul>
+<li>Multiple GPUs support</li>
+<li>Striping of NVME-SSD drives (md-raid0) on GPUDirect SQL</li>
+<li>Support of NVME-oF device on GPUDirect SQL</li>
+<li>Support of GiST index on GPU-version of PostGIS workloads</li>
+</ul>
+<p>You can obtain a license file, like as a plain text below, from HeteroDB,Inc.</p>
+<pre><code>IAgIVdKxhe+BSer3Y67jQW0+uTzYh00K6WOSH7xQ26Qcw8aeUNYqJB9YcKJTJb+QQhjmUeQpUnboNxVwLCd3HFuLXeBWMKp11/BgG0FSrkUWu/ZCtDtw0F1hEIUY7m767zAGV8y+i7BuNXGJFvRlAkxdVO3/K47ocIgoVkuzBfLvN/h9LffOydUnHPzrFHfLc0r3nNNgtyTrfvoZiXegkGM9GBTAKyq8uWu/OGonh9ybzVKOgofhDLk0rVbLohOXDhMlwDl2oMGIr83tIpCWG+BGE+TDwsJ4n71Sv6n4bi/ZBXBS498qShNHDGrbz6cNcDVBa+EuZc6HzZoF6UrljEcl=
+----
+VERSION:2
+SERIAL_NR:HDB-TRIAL
+ISSUED_AT:2019-05-09
+EXPIRED_AT:2019-06-08
+GPU_UUID:GPU-a137b1df-53c9-197f-2801-f2dccaf9d42f
+</code></pre>
+<p>Copy the license file to <code>/etc/heterodb.license</code>, then restart PostgreSQL.</p>
+<p>The startup log messages of PostgreSQL dumps the license information, and it tells us the license activation is successfully done.</p>
+<pre><code>    :
+ LOG:  HeteroDB Extra module loaded (API=20210525; NVIDIA cuFile)
+ LOG:  HeteroDB License: { &quot;version&quot; : 2, &quot;serial_nr&quot; : &quot;HDB-TRIAL&quot;, &quot;issued_at&quot; : &quot;2020-11-24&quot;, &quot;expired_at&quot; : &quot;2025-12-31&quot;, &quot;gpus&quot; : [ { &quot;uuid&quot; : &quot;GPU-8ba149db-53d8-c5f3-0f55-97ce8cfadb28&quot; } ]}
+ LOG:  PG-Strom version 3.0 built for PostgreSQL 12
+</code></pre>
+<h3 id="heterodb-kmod-installation">heterodb-kmod Installation</h3>
+<p>This module should be installed, if you use GPUDirect SQL using <code>nvme_strom</code> kernel module by HeteroDB.</p>
+<p>If NVIDIA GPUDirect Storage is used, skip this section.</p>
+<p><code>heterodb-kmod</code> package is distributed at the (https://heterodb.github.io/swdc/)[HeteroDB Software Distribution Center] as a free software. In other words, it is not an open source software.</p>
+<p>If your system already setup <code>heterodb-swdc</code> package, <code>dnf install</code> command downloads the RPM file and install the <code>heterodb-kmod</code> package.</p>
+<pre><code># dnf install heterodb-kmod
+</code></pre>
+<p>You ought to be ensure existence of <code>nvme_strom</code> kernel module using <code>modinfo</code> command.</p>
+<pre><code># modinfo nvme_strom
+filename:       /lib/modules/4.18.0-240.22.1.el8_3.x86_64/extra/nvme_strom.ko.xz
+version:        2.9-1.el8
+license:        BSD
+description:    SSD-to-GPU Direct SQL Module
+author:         KaiGai Kohei &lt;kaigai@heterodbcom&gt;
+rhelversion:    8.3
+depends:
+name:           nvme_strom
+vermagic:       4.18.0-240.22.1.el8_3.x86_64 SMP mod_unload modversions
+parm:           verbose:Enables debug messages (1=on, 2=verbose) (int)
+parm:           stat_enabled:Enables run-time statistics (int)
+parm:           p2p_dma_max_depth:Max number of concurrent P2P DMA requests per NVME device
+parm:           p2p_dma_max_unitsz:Max length of single DMA request in kB
+parm:           fast_ssd_mode:Use SSD2GPU Direct even if clean page caches exist (int)
+parm:           license:License validation status
+</code></pre>
+<p>NVME-Strom Linux kernel module has some parameters.</p>
+<table>
+<thead>
+<tr>
+<th align="center">Parameter</th>
+<th align="center">Type</th>
+<th align="center">Default</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center"><code>verbose</code></td>
+<td align="center"><code>int</code></td>
+<td align="center"><code>0</code></td>
+<td align="center">Enables detailed debug output</td>
+</tr>
+<tr>
+<td align="center"><code>stat_enabled</code></td>
+<td align="center"><code>int</code></td>
+<td align="center"><code>1</code></td>
+<td align="center">Enables statistics using <code>nvme_stat</code> command</td>
+</tr>
+<tr>
+<td align="center"><code>fast_ssd_mode</code></td>
+<td align="center"><code>int</code></td>
+<td align="center"><code>0</code></td>
+<td align="center">Operating mode for fast NVME-SSD</td>
+</tr>
+<tr>
+<td align="center"><code>p2p_dma_max_depth</code></td>
+<td align="center"><code>int</code></td>
+<td align="center"><code>1024</code></td>
+<td align="center">Maximum number of asynchronous P2P DMA request can be enqueued on the I/O-queue of NVME device</td>
+</tr>
+<tr>
+<td align="center"><code>p2p_dma_max_unitsz</code></td>
+<td align="center"><code>int</code></td>
+<td align="center"><code>256</code></td>
+<td align="center">Maximum length of data blocks, in kB, to be read by a single P2P DMA request at once</td>
+</tr>
+<tr>
+<td align="center"><code>license</code></td>
+<td align="center"><code>string</code></td>
+<td align="center"><code>-1</code></td>
+<td align="center">Shows the license expired date, if any.</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Here is an extra explanation for <code>fast_ssd_mode</code> parameter.</p>
+<p>When NVME-Strom Linux kernel module get a request for GPUDirect SQL data transfer, first of all, it checks whether the required data blocks are caches on page-caches of operating system.
+If <code>fast_ssd_mode</code> is <code>0</code>, NVME-Strom once writes back page caches of the required data blocks to the userspace buffer of the caller, then indicates application to invoke normal host--&gt;device data transfer by CUDA API. It is suitable for non-fast NVME-SSDs such as PCIe x4 grade.</p>
+<p>On the other hands, GPUDirect data transfer may be faster, if you use PCIe x8 grade fast NVME-SSD or use multiple SSDs in striping mode, than normal host--&gt;device data transfer after the buffer copy. If <code>fast_ssd_mode</code> is not <code>0</code>, NVME-Strom kicks GPUDirect SQL data transfer regardless of the page cache state.</p>
+<p>However, it shall never kicks GPUDirect data transfer if page cache is dirty.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Here is an extra explanation for <code>p2p_dma_max_depth</code> parameter.</p>
+<p>NVME-Strom Linux kernel module makes DMA requests for GPUDirect SQL data transfer, then enqueues them to I/O-queue of the source NVME devices.
+When asynchronous DMA requests are enqueued more than the capacity of NVME devices, latency of individual DMA requests become terrible because NVME-SSD controler processes the DMA requests in order of arrival. (On the other hands, it maximizes the throughput because NVME-SSD controler receives DMA requests continuously.)
+If turn-around time of the DMA requests are too large, it may be wrongly considered as errors, then can lead timeout of I/O request and return an error status. Thus, it makes no sense to enqueue more DMA requests to the I/O-queue more than the reasonable amount of pending requests for full usage of NVME devices.
+<code>p2p_dma_max_depth</code> parameter controls number of asynchronous P2P DMA requests that can be enqueued at once per NVME device. If application tries to enqueue DMA requests more than the configuration, the caller thread will block until completion of the running DMA. So, it enables to avoid unintentional high-load of NVME devices.</p>
+</div>
+<h2 id="nvidia-gpudirect-storage">NVIDIA GPUDirect Storage</h2>
+<p>NVIDIA GPUDirect Storage is a new feature of CUDA Toolkit version 11.4 which was released at Jun-2021.</p>
+<p>It also requires installation of OpenFabrics Enterprise Distribution (MOFED) driver by Mellanox, for
+direct read from local NVME-SSD drives or remove NVME-oF devices.</p>
+<p>You can obtain the MOFED driver from <a href="https://mellanox.com/products/infiniband-drivers/linux/mlnx_ofed">here</a>.</p>
+<p>The descriptions in this section may not reflect the the latest installation instructions exactly, so please check at the <a href="https://docs.nvidia.com/gpudirect-storage/">official documentation by NVIDIA</a> also.</p>
+<h3 id="mofed-driver-installation">MOFED Driver Installation</h3>
+<p>You can download the latest MOFED driver from <a href="https://mellanox.com/products/infiniband-drivers/linux/mlnx_ofed">here</a>.</p>
+<p>This section introduces the example of installation from the tgz archive.</p>
+<p><img alt="MOFED Driver Selection" src="../img/mofed-download.png" /></p>
+<p>Extract the tgz archive, then kick <code>mlnxofedinstall</code> script. Please don't forget the options to enable GPUDirect Storage features.</p>
+<pre><code># tar xvf MLNX_OFED_LINUX-5.3-1.0.0.1-rhel8.3-x86_64.tgz
+# cd MLNX_OFED_LINUX-5.3-1.0.0.1-rhel8.3-x86_64
+# ./mlnxofedinstall --with-nvmf --with-nfsrdma --enable-gds --add-kernel-support
+# dracut -f
+</code></pre>
+<p>During the build and installation of MOFED drivers, the installer may require additional packages.
+If your setup follows the document exactly, the following packages shall be required, so please install them using dnf command.</p>
+<ul>
+<li>createrepo</li>
+<li>kernel-rpm-macros</li>
+<li>python36-devel</li>
+<li>pciutils</li>
+<li>python36</li>
+<li>lsof</li>
+<li>kernel-modules-extra</li>
+<li>tcsh</li>
+<li>tcl</li>
+<li>tk</li>
+<li>gcc-gfortran</li>
+</ul>
+<p>Once MOFED drivers got installed, it should replace several INBOX drivers like nvme driver.</p>
+<p>For example, the command below shows the <code>/lib/modules/&lt;KERNEL_VERSION&gt;/extra/mlnx-nvme/host/nvme-rdma.ko</code> that is additionally installed, instead of the INBOX <code>nvme-rdma</code> (<code>/lib/modules/&lt;KERNEL_VERSION&gt;/kernel/drivers/nvme/host/nvme-rdma.ko.xz</code>).</p>
+<pre><code># modinfo nvme-rdma
+filename:       /lib/modules/4.18.0-240.22.1.el8_3.x86_64/extra/mlnx-nvme/host/nvme-rdma.ko
+license:        GPL v2
+rhelversion:    8.3
+srcversion:     49FD1FC7CCB178E4D859F29
+depends:        mlx_compat,rdma_cm,ib_core,nvme-core,nvme-fabrics
+name:           nvme_rdma
+vermagic:       4.18.0-240.22.1.el8_3.x86_64 SMP mod_unload modversions
+parm:           register_always:Use memory registration even for contiguous memory regions (bool)
+</code></pre>
+<p>Then, shutdown the system and restart, to replace the kernel modules already loaded (like <code>nvme</code>).</p>
+<p>Please don't forget to run <code>dracut -f</code> after completion of the <code>mlnxofedinstall</code> script.</p>
+<h3 id="gpudirect-storage-installation">GPUDirect Storage Installation</h3>
+<p>Next, let's install the GPUDirect Storage software stack.</p>
+<pre><code># dnf install nvidia-gds
+</code></pre>
+<p>Once the above installation is completed, <code>gdscheck</code> command allows to check the status of GPUDirect Storage.
+By the above installation process, NVME (local NVME-SSD) and NVME-oF (remove devices) should be <code>Supported</code>.</p>
+<pre><code># /usr/local/cuda/gds/tools/gdscheck -p
+ GDS release version: 1.0.0.82
+ nvidia_fs version:  2.7 libcufile version: 2.4
+ ============
+ ENVIRONMENT:
+ ============
+ =====================
+ DRIVER CONFIGURATION:
+ =====================
+ NVMe               : Supported
+ NVMeOF             : Supported
+ SCSI               : Unsupported
+ ScaleFlux CSD      : Unsupported
+ NVMesh             : Unsupported
+ DDN EXAScaler      : Unsupported
+ IBM Spectrum Scale : Unsupported
+ NFS                : Unsupported
+ WekaFS             : Unsupported
+ Userspace RDMA     : Unsupported
+ --Mellanox PeerDirect : Enabled
+ --rdma library        : Not Loaded (libcufile_rdma.so)
+ --rdma devices        : Not configured
+ --rdma_device_status  : Up: 0 Down: 0
+ =====================
+ CUFILE CONFIGURATION:
+ =====================
+ properties.use_compat_mode : true
+ properties.gds_rdma_write_support : true
+ properties.use_poll_mode : false
+ properties.poll_mode_max_size_kb : 4
+ properties.max_batch_io_timeout_msecs : 5
+ properties.max_direct_io_size_kb : 16384
+ properties.max_device_cache_size_kb : 131072
+ properties.max_device_pinned_mem_size_kb : 33554432
+ properties.posix_pool_slab_size_kb : 4 1024 16384
+ properties.posix_pool_slab_count : 128 64 32
+ properties.rdma_peer_affinity_policy : RoundRobin
+ properties.rdma_dynamic_routing : 0
+ fs.generic.posix_unaligned_writes : false
+ fs.lustre.posix_gds_min_kb: 0
+ fs.weka.rdma_write_support: false
+ profile.nvtx : false
+ profile.cufile_stats : 0
+ miscellaneous.api_check_aggressive : false
+ =========
+ GPU INFO:
+ =========
+ GPU index 0 NVIDIA A100-PCIE-40GB bar:1 bar size (MiB):65536 supports GDS
+ GPU index 1 NVIDIA A100-PCIE-40GB bar:1 bar size (MiB):65536 supports GDS
+ ==============
+ PLATFORM INFO:
+ ==============
+ IOMMU: disabled
+ Platform verification succeeded
+
+</code></pre>
+<div class="admonition tips">
+<p class="admonition-title">Tips</p>
+<p><strong>Additional configuration for RAID volume</strong></p>
+<p>For data reading from software RAID (md-raid0) volumes by GPUDirect Storage,
+the following line must be added to the <code>/lib/udev/rules.d/63-md-raid-arrays.rules</code> configuration file.</p>
+<p><code>IMPORT{​program}="/usr/sbin/mdadm --detail --export $devnode"</code></p>
+<p>Then reboot the system to ensure the new configuration.
+See <a href="https://docs.nvidia.com/gpudirect-storage/troubleshooting-guide/index.html#adding-udev-rules">NVIDIA GPUDirect Storage Installation and Troubleshooting Guide</a> for the details.</p>
+</div>
+<h2 id="postgresql-installation">PostgreSQL Installation</h2>
+<p>This section introduces PostgreSQL installation with RPM.
+We don't introduce the installation steps from the source because there are many documents for this approach, and there are also various options for the <code>./configure</code> script.</p>
+<p>PostgreSQL is also distributed in the packages of Linux distributions, however, it is not the latest one, and often older than the version which supports PG-Strom. For example, Red Hat Enterprise Linux 7.x or CentOS 7.x distributes PostgreSQL v9.2.x series. This version had been EOL by the PostgreSQL community.</p>
+<p>PostgreSQL Global Development Group provides yum repository to distribute the latest PostgreSQL and related packages.
+Like the configuration of EPEL, you can install a small package to set up yum repository, then install PostgreSQL and related software.</p>
+<p>Here is the list of yum repository definition: <a href="http://yum.postgresql.org/repopackages.php">http://yum.postgresql.org/repopackages.php</a>.</p>
+<p>Repository definitions are per PostgreSQL major version and Linux distribution. You need to choose the one for your Linux distribution, and for PostgreSQL v11 or later.</p>
+<p>You can install PostgreSQL as following steps:</p>
+<ul>
+<li>Installation of yum repository definition.</li>
+<li>Disables the distribution's default PostgreSQL module<ul>
+<li>Only for RHEL8/CentOS8 series</li>
+</ul>
+</li>
+<li>Installation of PostgreSQL packages.</li>
+</ul>
+<pre><code># dnf install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-8-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+# dnf -y module disable postgresql
+# dnf install -y postgresql13-devel postgresql13-server
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On the Red Hat Enterprise Linux 8 and CentOS 8, the package name <code>postgresql</code> conflicts to the default one at the distribution, thus, unable to install the packages from PGDG. So, disable the <code>postgresql</code> module by the distribution, using <code>dnf -y module disable postgresql</code>.
+For the Ret Hat Enterprise Linux 7 and CentOS 7, no need to disable the module because the packages provided by PGDG are identified by the major version.</p>
+</div>
+<p>The RPM packages provided by PostgreSQL Global Development Group installs software under the <code>/usr/pgsql-&lt;version&gt;</code> directory, so you may pay attention whether the PATH environment variable is configured appropriately.</p>
+<p><code>postgresql-alternative</code> package set up symbolic links to the related commands under <code>/usr/local/bin</code>, so allows to simplify the operations. Also, it enables to switch target version using <code>alternatives</code> command even if multiple version of PostgreSQL.</p>
+<pre><code># dnf install postgresql-alternatives
+</code></pre>
+<h2 id="pg-strom-installation">PG-Strom Installation</h2>
+<h3 id="rpm-installation">RPM Installation</h3>
+<p>PG-Strom and related packages are distributed from <a href="https://heterodb.github.io/swdc/">HeteroDB Software Distribution Center</a>.
+If you repository definition has been added, not many tasks are needed.</p>
+<p>We provide individual RPM packages of PG-Strom for each PostgreSQL major version. <code>pg_strom-PG12</code> package is built for PostgreSQL v12, and <code>pg_strom-PG13</code> is also built for PostgreSQL v13.</p>
+<p>It is a restriction due to binary compatibility of extension modules for PostgreSQL.</p>
+<pre><code># dnf install -y pg_strom-PG13
+</code></pre>
+<p>That's all for package installation.</p>
+<h3 id="installation-from-the-source">Installation from the source</h3>
+<p>For developers, we also introduces the steps to build and install PG-Strom from the source code.</p>
+<h4 id="getting-the-source-code">Getting the source code</h4>
+<p>Like RPM packages, you can download tarball of the source code from <a href="https://heterodb.github.io/swdc/">HeteroDB Software Distribution Center</a>.
+On the other hands, here is a certain time-lags to release the tarball, it may be preferable to checkout the master branch of <a href="https://github.com/heterodb/pg-strom">PG-Strom on GitHub</a> to use the latest development branch.</p>
+<pre><code>$ git clone https://github.com/heterodb/pg-strom.git
+Cloning into 'pg-strom'...
+remote: Counting objects: 13797, done.
+remote: Compressing objects: 100% (215/215), done.
+remote: Total 13797 (delta 208), reused 339 (delta 167), pack-reused 13400
+Receiving objects: 100% (13797/13797), 11.81 MiB | 1.76 MiB/s, done.
+Resolving deltas: 100% (10504/10504), done.
+</code></pre>
+<h4 id="building-the-pg-strom">Building the PG-Strom</h4>
+<p>Configuration to build PG-Strom must match to the target PostgreSQL strictly. For example, if a particular <code>strcut</code> has inconsistent layout by the configuration at build, it may lead problematic bugs; not easy to find out.
+Thus, not to have inconsistency, PG-Strom does not have own configure script, but references the build configuration of PostgreSQL using <code>pg_config</code> command.</p>
+<p>If PATH environment variable is set to the <code>pg_config</code> command of the target PostgreSQL, run <code>make</code> and <code>make install</code>.
+Elsewhere, give <code>PG_CONFIG=...</code> parameter on <code>make</code> command to tell the full path of the <code>pg_config</code> command.</p>
+<pre><code>$ cd pg-strom
+$ make PG_CONFIG=/usr/pgsql-13/bin/pg_config
+$ sudo make install PG_CONFIG=/usr/pgsql-13/bin/pg_config
+</code></pre>
+<h3 id="post-installation-setup">Post Installation Setup</h3>
+<h3 id="creation-of-database-cluster">Creation of database cluster</h3>
+<p>Database cluster is not constructed yet, run <code>initdb</code> command to set up initial database of PostgreSQL.</p>
+<p>The default path of the database cluster on RPM installation is <code>/var/lib/pgsql/&lt;version number&gt;/data</code>.
+If you install <code>postgresql-alternatives</code> package, this default path can be referenced by <code>/var/lib/pgdata</code> regardless of the PostgreSQL version.</p>
+<pre><code># su - postgres
+$ initdb -D /var/lib/pgdata/
+The files belonging to this database system will be owned by user &quot;postgres&quot;.
+This user must also own the server process.
+
+The database cluster will be initialized with locale &quot;en_US.UTF-8&quot;.
+The default database encoding has accordingly been set to &quot;UTF8&quot;.
+The default text search configuration will be set to &quot;english&quot;.
+
+Data page checksums are disabled.
+
+fixing permissions on existing directory /var/lib/pgdata ... ok
+creating subdirectories ... ok
+selecting dynamic shared memory implementation ... posix
+selecting default max_connections ... 100
+selecting default shared_buffers ... 128MB
+selecting default time zone ... Asia/Tokyo
+creating configuration files ... ok
+running bootstrap script ... ok
+performing post-bootstrap initialization ... ok
+syncing data to disk ... ok
+
+initdb: warning: enabling &quot;trust&quot; authentication for local connections
+You can change this by editing pg_hba.conf or using the option -A, or
+--auth-local and --auth-host, the next time you run initdb.
+
+Success. You can now start the database server using:
+
+    pg_ctl -D /var/lib/pgdata/ -l logfile start
+</code></pre>
+<h3 id="setup-postgresqlconf">Setup postgresql.conf</h3>
+<p>Next, edit <code>postgresql.conf</code> which is a configuration file of PostgreSQL.
+The parameters below should be edited at least to work PG-Strom.
+Investigate other parameters according to usage of the system and expected workloads.</p>
+<ul>
+<li><strong>shared_preload_libraries</strong><ul>
+<li>PG-Strom module must be loaded on startup of the postmaster process by the <code>shared_preload_libraries</code>. Unable to load it on demand. Therefore, you must add the configuration below.</li>
+<li><code>shared_preload_libraries = '$libdir/pg_strom'</code></li>
+</ul>
+</li>
+<li><strong>max_worker_processes</strong><ul>
+<li>PG-Strom internally uses several background workers, so the default configuration (= 8) is too small for other usage. So, we recommand to expand the variable for a certain margin.</li>
+<li><code>max_worker_processes = 100</code></li>
+</ul>
+</li>
+<li><strong>shared_buffers</strong><ul>
+<li>Although it depends on the workloads, the initial configuration of <code>shared_buffers</code> is too small for the data size where PG-Strom tries to work, thus storage workloads restricts the entire performance, and may be unable to work GPU efficiently.</li>
+<li>So, we recommend to expand the variable for a certain margin.</li>
+<li><code>shared_buffers = 10GB</code></li>
+<li>Please consider to apply <strong>SSD-to-GPU Direct SQL Execution</strong> to process larger than system's physical RAM size.</li>
+</ul>
+</li>
+<li><strong>work_mem</strong><ul>
+<li>Although it depends on the workloads, the initial configuration of <code>work_mem</code> is too small to choose the optimal query execution plan on analytic queries.</li>
+<li>An typical example is, disk-based merge sort may be chosen instead of the in-memory quick-sorting.</li>
+<li>So, we recommend to expand the variable for a certain margin.</li>
+<li><code>work_mem = 1GB</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="expand-os-resource-limits">Expand OS resource limits</h3>
+<p>GPU Direct SQL especially tries to open many files simultaneously, so resource limit for number of file descriptors per process should be expanded.</p>
+<p>Also, we recommend not to limit core file size to generate core dump of PostgreSQL certainly on system crash.</p>
+<p>If PostgreSQL service is launched by systemd, you can put the configurations of resource limit at <code>/etc/systemd/system/postgresql-XX.service.d/pg_strom.conf</code>.</p>
+<p>RPM installation setups the configuration below by the default.</p>
+<p>It comments out configuration to the environment variable <code>CUDA_ENABLE_COREDUMP_ON_EXCEPTION</code>. This is a developer option that enables to generate GPU's core dump on any CUDA/GPU level errors, if enabled. See <a href="https://docs.nvidia.com/cuda/cuda-gdb/index.html#gpu-coredump">CUDA-GDB:GPU core dump support</a> for more details.</p>
+<pre><code>[Service]
+LimitNOFILE=65536
+LimitCORE=infinity
+#Environment=CUDA_ENABLE_COREDUMP_ON_EXCEPTION=1
+</code></pre>
+<h3 id="start-postgresql">Start PostgreSQL</h3>
+<p>Start PostgreSQL service.</p>
+<p>If PG-Strom is set up appropriately, it writes out log message which shows PG-Strom recognized GPU devices.
+The example below recognized two NVIDIA A100 (PCIE; 40GB), and displays the closest GPU identifier foe each NVME-SSD drive.</p>
+<pre><code># systemctl start postgresql-13
+# journalctl -u postgresql-13
+-- Logs begin at Thu 2021-05-27 17:02:03 JST, end at Fri 2021-05-28 13:26:35 JST. --
+May 28 13:09:33 kujira.heterodb.in systemd[1]: Starting PostgreSQL 13 database server...
+May 28 13:09:33 kujira.heterodb.in postmaster[6336]: 2021-05-28 13:09:33.500 JST [6336] LOG:  NVRTC 11.3 is successfully loaded.
+May 28 13:09:33 kujira.heterodb.in postmaster[6336]: 2021-05-28 13:09:33.510 JST [6336] LOG:  failed on open('/proc/nvme-strom'): No such file or directory - likely nvme_strom.ko is not loaded
+May 28 13:09:33 kujira.heterodb.in postmaster[6336]: 2021-05-28 13:09:33.510 JST [6336] LOG:  HeteroDB Extra module loaded (API=20210525; NVIDIA cuFile)
+May 28 13:09:33 kujira.heterodb.in postmaster[6336]: 2021-05-28 13:09:33.553 JST [6336] LOG:  HeteroDB License: { &quot;version&quot; : 2, &quot;serial_nr&quot; : &quot;HDB-TRIAL&quot;, &quot;issued_at&quot; : &quot;2021-05-27&quot;, &quot;expired_at&quot; : &quot;2021-06-26&quot;, &quot;gpus&quot; : [ { &quot;uuid&quot; : &quot;GPU-cca38cf1-ddcc-6230-57fe-d42ad0dc3315&quot; }, { &quot;uuid&quot; : &quot;GPU-13943bfd-5b30-38f5-0473-78979c134606&quot; } ]}
+May 28 13:09:33 kujira.heterodb.in postmaster[6336]: 2021-05-28 13:09:33.553 JST [6336] LOG:  PG-Strom version 2.9 built for PostgreSQL 13
+May 28 13:09:43 kujira.heterodb.in postmaster[6336]: 2021-05-28 13:09:43.748 JST [6336] LOG:  PG-Strom: GPU0 NVIDIA A100-PCIE-40GB (108 SMs; 1410MHz, L2 40960kB), RAM 39.59GB (5120bits, 1.16GHz), PCI-E Bar1 64GB, CC 8.0
+May 28 13:09:43 kujira.heterodb.in postmaster[6336]: 2021-05-28 13:09:43.748 JST [6336] LOG:  PG-Strom: GPU1 NVIDIA A100-PCIE-40GB (108 SMs; 1410MHz, L2 40960kB), RAM 39.59GB (5120bits, 1.16GHz), PCI-E Bar1 64GB, CC 8.0
+May 28 13:09:43 kujira.heterodb.in postmaster[6336]: 2021-05-28 13:09:43.755 JST [6336] LOG:  - nvme0n1 (INTEL SSDPEDKE020T7; 0000:5e:00.0)
+May 28 13:09:43 kujira.heterodb.in postmaster[6336]: 2021-05-28 13:09:43.755 JST [6336] LOG:  - nvme1n1 (INTEL SSDPE2KX010T8; 0000:8a:00.0 --&gt; GPU0)
+May 28 13:09:43 kujira.heterodb.in postmaster[6336]: 2021-05-28 13:09:43.755 JST [6336] LOG:  - nvme2n1 (INTEL SSDPE2KX010T8; 0000:8b:00.0 --&gt; GPU0)
+May 28 13:09:43 kujira.heterodb.in postmaster[6336]: 2021-05-28 13:09:43.755 JST [6336] LOG:  - nvme4n1 (INTEL SSDPE2KX010T8; 0000:8d:00.0 --&gt; GPU0)
+May 28 13:09:43 kujira.heterodb.in postmaster[6336]: 2021-05-28 13:09:43.755 JST [6336] LOG:  - nvme3n1 (INTEL SSDPE2KX010T8; 0000:8c:00.0 --&gt; GPU0)
+May 28 13:09:43 kujira.heterodb.in postmaster[6336]: 2021-05-28 13:09:43.755 JST [6336] LOG:  - nvme6n1 (INTEL SSDPE2KX010T8; 0000:b5:00.0 --&gt; GPU1)
+May 28 13:09:43 kujira.heterodb.in postmaster[6336]: 2021-05-28 13:09:43.755 JST [6336] LOG:  - nvme7n1 (INTEL SSDPE2KX010T8; 0000:b6:00.0 --&gt; GPU1)
+May 28 13:09:43 kujira.heterodb.in postmaster[6336]: 2021-05-28 13:09:43.755 JST [6336] LOG:  - nvme5n1 (INTEL SSDPE2KX010T8; 0000:b4:00.0 --&gt; GPU1)
+May 28 13:09:43 kujira.heterodb.in postmaster[6336]: 2021-05-28 13:09:43.755 JST [6336] LOG:  - nvme8n1 (INTEL SSDPE2KX010T8; 0000:b7:00.0 --&gt; GPU1)
+May 28 13:09:43 kujira.heterodb.in postmaster[6336]: 2021-05-28 13:09:43.909 JST [6336] LOG:  redirecting log output to logging collector process
+May 28 13:09:43 kujira.heterodb.in postmaster[6336]: 2021-05-28 13:09:43.909 JST [6336] HINT:  Future log output will appear in directory &quot;log&quot;.
+May 28 13:09:44 kujira.heterodb.in systemd[1]: Started PostgreSQL 13 database server.
+</code></pre>
+<h3 id="creation-of-pg-strom-extension">Creation of PG-Strom Extension</h3>
+<p>At the last, create database objects related to PG-Strom, like SQL functions.
+This steps are packaged using EXTENSION feature of PostgreSQL. So, all you needs to run is <code>CREATE EXTENSION</code> on the SQL command line.</p>
+<p>Please note that this step is needed for each new database.
+If you want PG-Strom is pre-configured on new database creation, you can create PG-Strom extension on the <code>template1</code> database, its configuration will be copied to the new database on <code>CREATE DATABASE</code> command.</p>
+<pre><code>$ psql -U postgres
+psql (13.3)
+Type &quot;help&quot; for help.
+
+postgres=# create extension pg_strom ;
+CREATE EXTENSION
+</code></pre>
+<p>That's all for the installation.</p>
+<h2 id="postgis-installation">PostGIS Installation</h2>
+<p>PG-Strom supports execution of a part of PostGIS functions on GPU devices.
+This section introduces the steps to install PostGIS module. Skip it on your demand.</p>
+<p>PostGIS module can be installed from the yum repository by PostgreSQL Global Development Group, like PostgreSQL itself.
+The example below shows the command to install PostGIS v3.2 built for PostgreSQL v13.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In RHEL8 and CentOS8, several packages required by PostGIS are not distributed from the repositories enabled in the default installation.
+So, add <code>codeready-builder-for-rhel-8-x86_64-rpms</code> repository in RHEL8, or <code>PowerTools</code> repository in CentOS8 for the <code>--enablerepo</code> option to resolve this dependency.</p>
+</div>
+<pre><code>-- For RHEL8
+# dnf install -y postgis32_13 --enablerepo=codeready-builder-for-rhel-8-x86_64-rpms
+
+-- For CentOS8
+# dnf install -y postgis32_13 --enablerepo=powertools
+</code></pre>
+<p>Start PostgreSQL server after the initial setup of database cluster, then run <code>CREATE EXTENSION</code> command from SQL client to define geometry data type and SQL functions for geoanalytics.</p>
+<pre><code>postgres=# CREATE EXTENSION postgis;
+CREATE EXTENSION
+</code></pre>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../operations/" class="btn btn-neutral float-right" title="Basic Operations">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href=".." style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../operations/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

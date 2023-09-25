@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="PG-Strom Development Team">
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Partitioning - PG-Strom Manual</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+  <link href="//fonts.googleapis.com/earlyaccess/notosansjp.css" rel="stylesheet" />
+  <link href="//fonts.googleapis.com/css?family=Open+Sans:600,800" rel="stylesheet" />
+  <link href="../custom.css" rel="stylesheet" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Partitioning";
+    var mkdocs_page_input_path = "partition.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> PG-Strom Manual</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+  [<a href="../ja/partition/" style="color: #cccccc">Japanese</a> | <strong>English</strong>]
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../install/">Install</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Tutorial</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../operations/">Basic Operations</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../brin/">BRIN Index</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Partitioning</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#configuration-and-operation">Configuration and Operation</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#consideration-for-ssdgpu-location">Consideration for SSD/GPU location</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#limitations">Limitations</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../postgis/">PostGIS</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../hll_count/">HyperLogLog</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../troubles/">Trouble Shooting</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Advanced Features</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../ssd2gpu/">GPUDirect SQL</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../arrow_fdw/">Apache Arrow</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../gpucache/">GPU Cache</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../fluentd/">connect with Fluentd</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">References</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../ref_types/">Data Types</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../ref_devfuncs/">Functions and Operators</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../ref_sqlfuncs/">SQL Objects</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../ref_params/">GUC Parameters</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Release Note</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../release_v3.0/">PG-Strom v3.0</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../release_v2.3/">PG-Strom v2.3</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../release_v2.2/">PG-Strom v2.2</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../release_v2.0/">PG-Strom v2.0</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">PG-Strom Manual</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Tutorial &raquo;</li>
+        
+      
+    
+    <li>Partitioning</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="partitioning">Partitioning</h1>
+<p>This chapter introduces the way to use PG-Strom and the partitioning feature of PostgreSQL.
+Note that this chapter is only valid when PG-Strom works on <strong>PostgreSQL v11 or later</strong>.</p>
+<p>Also see <a href="https://www.postgresql.org/docs/current/static/ddl-partitioning.html">PostgreSQL Document: Table Partitioning</a> for more details of the partitioning feature of PostgreSQL.</p>
+<h2 id="overview">Overview</h2>
+<p>PostgreSQL v10 newly support table partitioning.
+This mechanism splits one logically large table into physically small pieces. It is valuable because it can skip partitioned child tables which is obviously unnecessary to scan from the search qualification, and it can offer broader I/O bandwidth by physically distributed storage and so on.</p>
+<p>PostgreSQL v10 supports two kinds of them: range-partitioning and list-partitioning. Then, PostgreSQL v11 newly supports hash-partitioning and partition-wise JOINs.</p>
+<p>The diagram below shows a range-partitioning configuration with <code>date</code>-type key values.
+A record which has <code>2018-05-30</code> as key is distributed to the partition child table <code>tbl_2018</code>, in the same way, a record which has <code>2014-03-21</code> is distributed to the partition child table <code>tbl_2014</code>, and so on.</p>
+<p>In case when scan qualifier <code>WHERE ymd &gt; '2016-07-01'::date</code> is added on scan of the partitioned table for example, it is obvious that <code>tbl_2014</code> and <code>tbl_2015</code> contains no records to match, therefore, PostgreSQL' optimizer constructs query execution plan which runs on only <code>tbl_2016</code>, <code>tbl_2017</code> and <code>tbl_2018</code> then merges their results by <strong>Append</strong> node. It shall perform as if records are read from one logical table.</p>
+<p><img alt="Partitioning Overview" src="../img/partition-overview.png" /></p>
+<p>When PG-Strom is used with table partitioning of PostgreSQL together, its optimizer may choose <strong>GpuScan</strong> to scan the individual partition child tables to be scanned, in the result of cost estimation. In this case, <strong>Append</strong> node merges the results of <strong>GpuScan</strong>.</p>
+<p>On the other hands, if query runs JOIN or GROUP BY, which can be accelerated by PG-Strom, next to the scan on partitioned table, it needs consideration from the standpoint of performance optimization.</p>
+<p>For example, in case when query scans non-partitioned table then runs JOIN with other tables and GROUP BY, under some conditions, it can handle step-step data exchange on GPU device memory. It is an optimal workload for PG-Strom due to minimized data exchange between GPU and CPU.</p>
+<p>In case when query runs corresponding workload on the partitioned table, it is problematic that <strong>Append</strong> node is injected into between the child tables scan and JOIN/GROUP BY. Under the query execution plan, the result of GpuScan must be written back to the host system, then <strong>Append</strong> merges them and send back the data to GPU to run the following GpuJoin and GpuPreAgg. It is never efficient query execution.</p>
+<p><img alt="Partitioning Optimization" src="../img/partition-optimize.png" /></p>
+<p>The example below shows a query execution plan to the query which includes JOIN and GROUP BY towards the partitioned table <code>pt</code> by the key field <code>ymd</code> of <code>date</code> type; per year distribution.</p>
+<p>Due to the scan qualification, it omits scan on the partition child tables for 2016 or prior, in addition, a combined JOIN and GROUP BY on the <code>pt_2017</code>, <code>pt_2018</code> and <code>pt_2019</code> shall be executed prior to the <strong>Append</strong>.</p>
+<pre><code># EXPLAIN SELECT cat,count(*),avg(ax)
+            FROM pt NATURAL JOIN t1
+           WHERE ymd &gt; '2017-01-01'::date
+           GROUP BY cat;
+                                   QUERY PLAN
+--------------------------------------------------------------------------------
+ HashAggregate  (cost=196410.07..196412.57 rows=200 width=48)
+   Group Key: pt_2017.cat
+   -&gt;  Gather  (cost=66085.69..196389.07 rows=1200 width=72)
+         Workers Planned: 2
+         -&gt;  Parallel Append  (cost=65085.69..195269.07 rows=600 width=72)
+               -&gt;  Parallel Custom Scan (GpuPreAgg)  (cost=65085.69..65089.69 rows=200 width=72)
+                     Reduction: Local
+                     Combined GpuJoin: enabled
+                     -&gt;  Parallel Custom Scan (GpuJoin) on pt_2017  (cost=32296.64..74474.20 rows=1050772 width=40)
+                           Outer Scan: pt_2017  (cost=28540.80..66891.11 rows=1050772 width=36)
+                           Outer Scan Filter: (ymd &gt; '2017-01-01'::date)
+                           Depth 1: GpuHashJoin  (nrows 1050772...2521854)
+                                    HashKeys: pt_2017.aid
+                                    JoinQuals: (pt_2017.aid = t1.aid)
+                                    KDS-Hash (size: 10.78MB)
+                           -&gt;  Seq Scan on t1  (cost=0.00..1935.00 rows=100000 width=12)
+               -&gt;  Parallel Custom Scan (GpuPreAgg)  (cost=65078.35..65082.35 rows=200 width=72)
+                     Reduction: Local
+                     Combined GpuJoin: enabled
+                     -&gt;  Parallel Custom Scan (GpuJoin) on pt_2018  (cost=32296.65..74465.75 rows=1050649 width=40)
+                           Outer Scan: pt_2018  (cost=28540.81..66883.43 rows=1050649 width=36)
+                           Outer Scan Filter: (ymd &gt; '2017-01-01'::date)
+                           Depth 1: GpuHashJoin  (nrows 1050649...2521557)
+                                    HashKeys: pt_2018.aid
+                                    JoinQuals: (pt_2018.aid = t1.aid)
+                                    KDS-Hash (size: 10.78MB)
+                           -&gt;  Seq Scan on t1  (cost=0.00..1935.00 rows=100000 width=12)
+               -&gt;  Parallel Custom Scan (GpuPreAgg)  (cost=65093.03..65097.03 rows=200 width=72)
+                     Reduction: Local
+                     Combined GpuJoin: enabled
+                     -&gt;  Parallel Custom Scan (GpuJoin) on pt_2019  (cost=32296.65..74482.64 rows=1050896 width=40)
+                           Outer Scan: pt_2019  (cost=28540.80..66898.79 rows=1050896 width=36)
+                           Outer Scan Filter: (ymd &gt; '2017-01-01'::date)
+                           Depth 1: GpuHashJoin  (nrows 1050896...2522151)
+                                    HashKeys: pt_2019.aid
+                                    JoinQuals: (pt_2019.aid = t1.aid)
+                                    KDS-Hash (size: 10.78MB)
+                           -&gt;  Seq Scan on t1  (cost=0.00..1935.00 rows=100000 width=12)
+(38 rows)
+</code></pre>
+<h2 id="configuration-and-operation">Configuration and Operation</h2>
+<p>By the GUC parameters below, PG-Strom enables/disables the push-down of JOIN/GROUP BY under the partition child tables.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Parameter</th>
+<th align="center">Type</th>
+<th align="center">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left"><code>pg_strom.enable_partitionwise_gpujoin</code></td>
+<td align="center"><code>bool</code></td>
+<td align="center"><code>on</code></td>
+<td align="left">Enables/disables whether GpuJoin is pushed down to the partition children. Available only PostgreSQL v10 or later.</td>
+</tr>
+<tr>
+<td align="left"><code>pg_strom.enable_partitionwise_gpupreagg</code></td>
+<td align="center"><code>bool</code></td>
+<td align="center"><code>on</code></td>
+<td align="left">Enables/disables whether GpuPreAgg is pushed down to the partition children. Available only PostgreSQL v10 or later.</td>
+</tr>
+</tbody>
+</table>
+<p>Default of the parameters are <code>on</code>. Once set to <code>off</code>, push-down is disabled.</p>
+<p>The query execution plan is changed as follows, by EXPLAIN command for the query above section.
+It uses <strong>GpuScan</strong> to scan the partition child tables, however, their results are once written back to the host system, then merged by <strong>Append</strong> and moved to GPU again to process <strong>GpuJoin</strong>.</p>
+<pre><code>postgres=# set pg_strom.enable_partitionwise_gpujoin = off;
+SET
+postgres=# set pg_strom.enable_partitionwise_gpupreagg = off;
+SET
+postgres=# EXPLAIN SELECT cat,count(*),avg(ax) FROM pt NATURAL JOIN t1 WHERE ymd &gt; '2017-01-01'::date group by cat;
+                                                           QUERY PLAN
+--------------------------------------------------------------------------------------------------------------------------------
+ Finalize GroupAggregate  (cost=341392.92..341399.42 rows=200 width=48)
+   Group Key: pt.cat
+   -&gt;  Sort  (cost=341392.92..341393.92 rows=400 width=72)
+         Sort Key: pt.cat
+         -&gt;  Gather  (cost=341333.63..341375.63 rows=400 width=72)
+               Workers Planned: 2
+               -&gt;  Partial HashAggregate  (cost=340333.63..340335.63 rows=200 width=72)
+                     Group Key: pt.cat
+                     -&gt;  Parallel Custom Scan (GpuJoin)  (cost=283591.92..283591.92 rows=7565562 width=40)
+                           Depth 1: GpuHashJoin  (nrows 3152318...7565562)
+                                    HashKeys: pt.aid
+                                    JoinQuals: (pt.aid = t1.aid)
+                                    KDS-Hash (size: 10.78MB)
+                           -&gt;  Append  (cost=28540.80..200673.34 rows=3152318 width=36)
+                                 -&gt;  Parallel Custom Scan (GpuScan) on pt_2017  (cost=28540.80..66891.11 rows=1050772 width=36)
+                                       GPU Filter: (ymd &gt; '2017-01-01'::date)
+                                 -&gt;  Parallel Custom Scan (GpuScan) on pt_2018  (cost=28540.81..66883.43 rows=1050649 width=36)
+                                       GPU Filter: (ymd &gt; '2017-01-01'::date)
+                                 -&gt;  Parallel Custom Scan (GpuScan) on pt_2019  (cost=28540.80..66898.79 rows=1050896 width=36)
+                                       GPU Filter: (ymd &gt; '2017-01-01'::date)
+                           -&gt;  Seq Scan on t1  (cost=0.00..1935.00 rows=100000 width=12)
+(21 rows)
+</code></pre>
+<h3 id="consideration-for-ssdgpu-location">Consideration for SSD/GPU location</h3>
+<h2 id="limitations">Limitations</h2>
+<p><strong>Experimental Feature</strong></p>
+<p>It is an experimental feature to push down GpuJoin and GpuPreAgg to the partitioned child tables, so it may lead unexpected behavior or system crash. In such case, disable the feature using <code>pg_strom.enable_partitionwise_gpujoin</code> or <code>pg_strom.enable_partitionwise_gpupreagg</code>. And report your case to <a href="https://github.com/heterodb/pg-strom/issues">PG-Strom Issues</a>.</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../postgis/" class="btn btn-neutral float-right" title="PostGIS">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../brin/" class="btn btn-neutral" title="BRIN Index"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../brin/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../postgis/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme_extra.js" defer></script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
